@@ -1,11 +1,11 @@
-package com.electronicvotingsystem.service;
+package com.eletronicvotingsystem.service;
 
-import com.electronicvotingsystem.entity.User;
-import com.electronicvotingsystem.exception.UserNotFoundException;
+import com.eletronicvotingsystem.entity.User;
+import com.eletronicvotingsystem.exception.UserNotFoundException;
 
 public interface UserService {
 
 	//user validation
-		public User loginUser(String userName, String password)throws UserNotFoundException;
-			
+	public User loginUser(String userName, String password)throws UserNotFoundException;
+		
 }
