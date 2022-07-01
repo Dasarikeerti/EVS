@@ -10,10 +10,6 @@ public class ElectoralOfficerDTO extends UserDTO {
 	@NotNull
 	private String designation;
 
-	public ElectoralOfficerDTO() {
-		super();
-	}
-
 
 	public String getDesignation() {
 		return designation;

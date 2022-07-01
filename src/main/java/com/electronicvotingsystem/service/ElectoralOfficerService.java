@@ -1,7 +1,7 @@
 package com.electronicvotingsystem.service;
 
+import com.electronicvotingsystem.exception.UserAlreadyExistsException;
 import com.electronicvotingsystem.model.ElectoralOfficerDTO;
-import com.electronicvotingsystem.serviceimpl.UserAlreadyExistsException;
 
 public interface ElectoralOfficerService {
 

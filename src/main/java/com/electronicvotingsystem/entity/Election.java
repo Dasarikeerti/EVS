@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -28,15 +29,10 @@ public class Election {
 	@NotNull
 	private String state;
 
-//	@NotNull
-//	@OneToMany(mappedBy = "election",cascade=CascadeType.ALL,fetch = FetchType.EAGER )
-//	//@JoinColumn(name="Candidate.userId")
-//	private List<Candidate> candidates = new ArrayList<>();
-//	
-//	@OneToMany
-//	//@JoinColumn(name="scheduleId")
-//	private List <Schedule> schedules = new ArrayList<>() ;
-
+	@NotNull
+	@OneToMany(mappedBy = "election",cascade=CascadeType.ALL,fetch = FetchType.EAGER )
+	private List<Candidate> candidates = new ArrayList<>();
+	
 	
 	
 
@@ -68,4 +64,16 @@ public class Election {
 	public void setState(String state) {
 		this.state = state;
 	}
+
+
+	public List<Candidate> getCandidates() {
+		return candidates;
+	}
+
+
+	public void setCandidates(List<Candidate> candidates) {
+		this.candidates = candidates;
+	}
+
+
 }

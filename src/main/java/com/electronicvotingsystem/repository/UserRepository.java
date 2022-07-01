@@ -7,6 +7,10 @@ import com.electronicvotingsystem.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+	//To validate the credentials of the user 
 	public User findByUserNameAndPassword(String username,String password);
+	
+	//To have unique username 
 	public boolean existsByUserName(String userName);
+	
 }

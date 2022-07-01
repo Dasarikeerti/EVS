@@ -55,7 +55,7 @@ public class ElectionServiceImpl implements ElectionService {
 	//Update Election
 
 	@Override
-	public Election updateElection(ElectionDTO electionDTO) throws ElectionNotFoundException{
+	public Election updateElection(ElectionDTO electionDTO) throws ElectionNotFoundException {
 		Optional<Election> election = electionRepo.findById(electionDTO.getElectionId());
 		Election electionRecord=null;
 		if(election.isPresent()) {
@@ -70,19 +70,13 @@ public class ElectionServiceImpl implements ElectionService {
 		return electionRecord;
 	}
 
+
 	@Override
 	public String deleteElection(int id) throws ElectionNotFoundException {
-		Optional<Election> election = electionRepo.findById(id);
-		String message = null;
-		if (election.isPresent()) {
-			electionRepo.deleteById(id);
-			message = "election Deleted Successfully";
-
-		} else {
-			message = "No Election Found";
-			throw new ElectionNotFoundException(message);
-		}
-		return message;
+		
+		return null;
 	}
 
+
+	
 }

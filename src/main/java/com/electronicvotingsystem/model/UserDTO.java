@@ -1,7 +1,6 @@
 package com.electronicvotingsystem.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotNull;
 

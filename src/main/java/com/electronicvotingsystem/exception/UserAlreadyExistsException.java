@@ -1,7 +1,7 @@
-package com.electronicvotingsystem.serviceimpl;
+package com.electronicvotingsystem.exception;
 
 public class UserAlreadyExistsException extends Exception {
-
+	
 	public UserAlreadyExistsException() {
 	}
 

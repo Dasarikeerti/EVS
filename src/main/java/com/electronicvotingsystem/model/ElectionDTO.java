@@ -1,5 +1,8 @@
 package com.electronicvotingsystem.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
@@ -15,8 +18,10 @@ public class ElectionDTO {
 	@NotNull
 	private String state;
 
+	@NotNull
+	private List<CandidateDTO> candidateDTOs = new ArrayList<>();
 	
-
+	
 	public int getElectionId() {
 		return electionId;
 	}
@@ -45,6 +50,19 @@ public class ElectionDTO {
 	public void setState(String state) {
 		this.state = state;
 	}
+
+
+	public List<CandidateDTO> getCandidateDTOs() {
+		return candidateDTOs;
+	}
+
+
+	public void setCandidateDTOs(List<CandidateDTO> candidateDTOs) {
+		this.candidateDTOs = candidateDTOs;
+	}
+
+
+	
 
 
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.electronicvotingsystem.entity.ElectoralOfficer;
+import com.electronicvotingsystem.exception.UserAlreadyExistsException;
 import com.electronicvotingsystem.model.ElectoralOfficerDTO;
 import com.electronicvotingsystem.repository.ElectoralOfficerRepository;
 import com.electronicvotingsystem.repository.UserRepository;
@@ -16,20 +17,20 @@ public class ElectoralOfficerServiceImpl implements ElectoralOfficerService {
 	ElectoralOfficerRepository electoralOfficerRepository;
 	
 	@Autowired
-	private ConversionClass convertelectoralOfficerRepo ;
+	private ConversionClass conversionClass ;
 	
 	@Autowired
-	private UserRepository userRepo;
+	private UserRepository userRepository;
 	
 	@Override
 	public String registerElectoralOfficer(ElectoralOfficerDTO electoralOfficerDTO) throws UserAlreadyExistsException{
 		
 		String message=null;
 		ElectoralOfficer electoralOfficer = null;
-		 if(this.userRepo.existsByUserName(electoralOfficerDTO.getUserName())) {
+		 if(this.userRepository.existsByUserName(electoralOfficerDTO.getUserName())) {
 		        throw new UserAlreadyExistsException("User with given userName already exist");
 		 }
-		 electoralOfficer = electoralOfficerRepository.save(convertelectoralOfficerRepo.convertToElectoralOfficerEntity(electoralOfficerDTO));
+		 electoralOfficer = electoralOfficerRepository.save(conversionClass.convertToElectoralOfficerEntity(electoralOfficerDTO));
 		 if(electoralOfficer!=null) {
 		 message="register Successfull";
 		 }
