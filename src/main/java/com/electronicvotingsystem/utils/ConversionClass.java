@@ -1,5 +1,4 @@
-package com.electronicvotingsystem.utils;
-
+package com.eletronicvotingsystem.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,99 +6,184 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
-import com.electronicvotingsystem.entity.Candidate;
-import com.electronicvotingsystem.entity.Election;
-import com.electronicvotingsystem.entity.ElectoralOfficer;
-import com.electronicvotingsystem.entity.Schedule;
-import com.electronicvotingsystem.model.CandidateDTO;
-import com.electronicvotingsystem.model.ElectionDTO;
-import com.electronicvotingsystem.model.ElectoralOfficerDTO;
-import com.electronicvotingsystem.model.ScheduleDTO;
+import com.eletronicvotingsystem.entity.Admin;
+import com.eletronicvotingsystem.entity.Candidate;
+import com.eletronicvotingsystem.entity.Election;
+import com.eletronicvotingsystem.entity.ElectoralOfficer;
+import com.eletronicvotingsystem.entity.Party;
+import com.eletronicvotingsystem.entity.Schedule;
+import com.eletronicvotingsystem.entity.Voter;
+import com.eletronicvotingsystem.entity.VoterRequest;
+import com.eletronicvotingsystem.model.AdminDTO;
+import com.eletronicvotingsystem.model.CandidateDTO;
+import com.eletronicvotingsystem.model.ElectionDTO;
+import com.eletronicvotingsystem.model.ElectoralOfficerDTO;
+import com.eletronicvotingsystem.model.PartyDTO;
+import com.eletronicvotingsystem.model.ScheduleDTO;
+import com.eletronicvotingsystem.model.VoterDTO;
+import com.eletronicvotingsystem.model.VoterRequestDTO;
 
 @Component
 public class ConversionClass {
 
-	// Converting Dto to entities to store in database collected from users;
+	// converting PartyDTO to entity
 
-	// ElectionDTO to Election entity to store
+	public Party convertToPartyEntity(PartyDTO partyDTO) {
+		Party party = new Party();
+		BeanUtils.copyProperties(partyDTO, party);
+		return party;
+	}
+
+	// converting entity to PartyDTO
+
+	public PartyDTO convertToPartyDTO(Party party) {
+		PartyDTO partyDto = new PartyDTO();
+		BeanUtils.copyProperties(party, partyDto);
+		return partyDto;
+	}
+	// converting VoterRequestDTO to entity
+
+	public VoterRequest convertToVoterRequestEntity(VoterRequestDTO voterRequestDTO) {
+		VoterRequest voterRequest = new VoterRequest();
+		BeanUtils.copyProperties(voterRequestDTO, voterRequest);
+		return voterRequest;
+	}
+
+	// converting entity to VoterRequestDTO
+
+	public VoterRequestDTO convertToVoterRequestDTO(VoterRequest voterRequest) {
+		VoterRequestDTO voterRequestDto = new VoterRequestDTO();
+		BeanUtils.copyProperties(voterRequest, voterRequestDto);
+		return voterRequestDto;
+	}
+
+	// Converting ElectionDTO to entity
+
 	public Election convertToElectionEntity(ElectionDTO electionDTO) {
 		Election election = new Election();
 		BeanUtils.copyProperties(electionDTO, election);
-		List<CandidateDTO> candidateDTOs = electionDTO.getCandidateDTOs();
+		List<CandidateDTO> candidateDTOs = electionDTO.getCandidates();
 		List<Candidate> candidates = new ArrayList<>();
 
-		for(CandidateDTO candidateDTO : candidateDTOs) {
+		for (CandidateDTO candidateDTO : candidateDTOs) {
 			candidates.add(convertToCandidateEntity(candidateDTO));
 		}
 		election.setCandidates(candidates);
 
+		List<ScheduleDTO> scheduleDTOs = electionDTO.getSchedules();
+		List<Schedule> schedules = new ArrayList<>();
+
+		for (ScheduleDTO scheduleDTO : scheduleDTOs) {
+			schedules.add(convertToScheduleEntity(scheduleDTO));
+		}
+		election.setSchedules(schedules);
+
 		return election;
 	}
 
-	// ElectoralOfficerDTO to ElectoralOfficer entity to store
-	public ElectoralOfficer convertToElectoralOfficerEntity(ElectoralOfficerDTO electoralOfficerDTO) {
-		ElectoralOfficer electoralOfficer = new ElectoralOfficer();
-		BeanUtils.copyProperties(electoralOfficerDTO, electoralOfficer);
+	// Converting entity to ElectionDTO
 
-		return electoralOfficer;
+	public ElectionDTO convertToElectionDTO(Election election) {
+		ElectionDTO electionDto = new ElectionDTO();
+		BeanUtils.copyProperties(election, electionDto);
+
+		List<Candidate> candidates = election.getCandidates();
+		List<CandidateDTO> candidatesDTOs = new ArrayList<>();
+		for (Candidate candidate : candidates) {
+			candidatesDTOs.add(convertToCandidateDTO(candidate));
+		}
+		electionDto.setCandidates(candidatesDTOs);
+
+		List<Schedule> schedules = election.getSchedules();
+		List<ScheduleDTO> schedulesDTOs = new ArrayList<>();
+		for (Schedule schedule : schedules) {
+			schedulesDTOs.add(convertToScheduleDTO(schedule));
+		}
+		electionDto.setSchedules(schedulesDTOs);
+
+		return electionDto;
+
 	}
-	
 
-	//Converting  ScheduleDTO to entity to store 
+	// Converting CandidateDTO to entity
+
+	public Candidate convertToCandidateEntity(CandidateDTO candidateDTO) {
+		Candidate candidate = new Candidate();
+		BeanUtils.copyProperties(candidateDTO, candidate);
+		return candidate;
+	}
+
+	// Converting entity to CandidateDTO
+
+	public CandidateDTO convertToCandidateDTO(Candidate candidate) {
+		CandidateDTO candidateDto = new CandidateDTO();
+		BeanUtils.copyProperties(candidate, candidateDto);
+		return candidateDto;
+	}
+
+	// Converting ScheduleDTO to entity
 
 	public Schedule convertToScheduleEntity(ScheduleDTO scheduleDTO) {
 		Schedule schedule = new Schedule();
 		BeanUtils.copyProperties(scheduleDTO, schedule);
 		return schedule;
 	}
-	
-	//Converting  CandidateDTO to entity to store
 
-		public Candidate convertToCandidateEntity(CandidateDTO candidateDTO) {
-			Candidate candidate = new Candidate();
-			BeanUtils.copyProperties(candidateDTO, candidate);
-			return candidate;
-		}
+	// Converting entity to ScheduleDTO
 
-	
-	// Converting Entities to DTO objects to display to the users;
-
-	// Election to ElectionDTO to display to users
-	public ElectionDTO convertToElectionDTO(Election election) {
-		ElectionDTO electionDto = new ElectionDTO();
-		BeanUtils.copyProperties(election, electionDto);
-		List<Candidate> candidates = election.getCandidates();
-		List<CandidateDTO> candidatesDTOs = new ArrayList<>();
-		for(Candidate candidate : candidates){
-			candidatesDTOs.add(convertToCandidateDTO(candidate));
-		}
-		electionDto.setCandidateDTOs(candidatesDTOs);
-
-		return electionDto;
-
+	public ScheduleDTO convertToScheduleDTO(Schedule schedule) {
+		ScheduleDTO scheduleDto = new ScheduleDTO();
+		BeanUtils.copyProperties(schedule, scheduleDto);
+		return scheduleDto;
 	}
 
-	// ElectoralOfficer to ElectoralOfficerDTO  to display to user
+	// Converting VoterDTO to entity
+
+	public Voter convertToVoterEntity(VoterDTO voterDTO) {
+		Voter voter = new Voter();
+		BeanUtils.copyProperties(voterDTO, voter);
+		return voter;
+	}
+
+	// Converting entity to VoterDTO
+
+	public VoterDTO convertToVoterDTO(Voter voter) {
+		VoterDTO voterDto = new VoterDTO();
+		BeanUtils.copyProperties(voter, voterDto);
+		return voterDto;
+	}
+
+	// Converting ElectoralDTO to entity
+
+	public ElectoralOfficer convertToElectoralOfficerEntity(ElectoralOfficerDTO electoralOfficerDTO) {
+		ElectoralOfficer electoralOfficer = new ElectoralOfficer();
+		BeanUtils.copyProperties(electoralOfficerDTO, electoralOfficer);
+
+		return electoralOfficer;
+	}
+
+	// Converting entity to ElectoralDTO
+
 	public ElectoralOfficerDTO convertToElectoralOfficerDTO(ElectoralOfficer electoralOfficer) {
 		ElectoralOfficerDTO electoralOfficerDto = new ElectoralOfficerDTO();
 		BeanUtils.copyProperties(electoralOfficer, electoralOfficerDto);
 		return electoralOfficerDto;
 	}
 
-	
-	//Converting entity to ScheduleDTO to display to user
+	// Converting AdminDTO to entity
 
-		public ScheduleDTO convertToScheduleDTO(Schedule schedule) {
-			ScheduleDTO scheduleDto= new ScheduleDTO();
-			BeanUtils.copyProperties(schedule, scheduleDto);
-			return scheduleDto;
-		}
-		
-		//Converting entity to CandidateDTO to display to user
+	public Admin convertToAdminEntity(AdminDTO adminDTO) {
+		Admin admin = new Admin();
+		BeanUtils.copyProperties(adminDTO, admin);
+		return admin;
+	}
 
-		public CandidateDTO convertToCandidateDTO(Candidate candidate) {
-			CandidateDTO candidateDto = new CandidateDTO();
-			BeanUtils.copyProperties(candidate, candidateDto);
-			return candidateDto;
-		}
+	// Converting entity to AdminDTO
+
+	public AdminDTO convertToAdminDTO(Admin admin) {
+		AdminDTO adminDto = new AdminDTO();
+		BeanUtils.copyProperties(admin, adminDto);
+		return adminDto;
+	}
+
 }
