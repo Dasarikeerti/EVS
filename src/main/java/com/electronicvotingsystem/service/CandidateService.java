@@ -1,15 +1,16 @@
-package com.eletronicvotingsystem.service;
+package com.electronicvotingsystem.service;
 
 import java.util.List;
 
-import com.eletronicvotingsystem.entity.Candidate;
-import com.eletronicvotingsystem.exception.CandidateAlreadyExistsException;
-import com.eletronicvotingsystem.exception.CandidateNotFoundException;
-import com.eletronicvotingsystem.model.CandidateDTO;
+import com.electronicvotingsystem.entity.Candidate;
+import com.electronicvotingsystem.exception.CandidateAlreadyExistsException;
+import com.electronicvotingsystem.exception.CandidateNotFoundException;
+import com.electronicvotingsystem.exception.UserAlreadyExistsException;
+import com.electronicvotingsystem.model.CandidateDTO;
 
-public interface CandidateService {
-
-	public String addCandidate(CandidateDTO candidateDTO) throws CandidateAlreadyExistsException;
+public interface CandidateService { 
+	
+	public String addCandidate(CandidateDTO candidateDTO) throws CandidateAlreadyExistsException, UserAlreadyExistsException;
 
 	public CandidateDTO viewCandidate(int userId) throws CandidateNotFoundException;
 

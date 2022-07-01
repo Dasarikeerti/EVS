@@ -1,5 +1,6 @@
-package com.eletronicvotingsystem.entity;
+package com.electronicvotingsystem.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -11,13 +12,15 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
-@Table(name = "users")
+@Table(name="users")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-
 	private int userId;
 
 	@NotNull
@@ -33,7 +36,8 @@ public class User {
 	private String mobileNo;
 
 	@NotNull
-	private LocalDateTime dateOfBirth;
+	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private LocalDate dateOfBirth;
 
 	@NotNull
 	private String district;
@@ -45,25 +49,7 @@ public class User {
 
 	private String password;
 
-	public User() {
-		super();
-	}
-
-	public User(int userId, @NotNull String name, @NotNull String address, @NotNull String gender,
-			@NotNull String mobileNo, @NotNull LocalDateTime dateOfBirth, @NotNull String district,
-			@NotNull String userName, @NotNull String password) {
-		super();
-		this.userId = userId;
-		this.name = name;
-		this.address = address;
-		this.gender = gender;
-		this.mobileNo = mobileNo;
-		this.dateOfBirth = dateOfBirth;
-		this.district = district;
-		this.userName = userName;
-		this.password = password;
-	}
-
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -104,11 +90,11 @@ public class User {
 		this.mobileNo = mobileNo;
 	}
 
-	public LocalDateTime getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(LocalDateTime dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -136,10 +122,4 @@ public class User {
 		this.password = password;
 	}
 
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", name=" + name + ", address=" + address + ", gender=" + gender
-				+ ", mobileNo=" + mobileNo + ", dateOfBirth=" + dateOfBirth + ", district=" + district + ", userName="
-				+ userName + ", password=" + password + "]";
-	}
 }

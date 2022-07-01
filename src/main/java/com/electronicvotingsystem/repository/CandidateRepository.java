@@ -1,8 +1,8 @@
-package com.eletronicvotingsystem.repository;
+package com.electronicvotingsystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.eletronicvotingsystem.entity.Candidate;
+import com.electronicvotingsystem.entity.Candidate;
 
 public interface CandidateRepository extends JpaRepository<Candidate, Integer> {
 
